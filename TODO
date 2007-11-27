@@ -1,0 +1,12 @@
+Short-term/Next:
+
+- Sensible help system
+- Put unused stuff in the graveyard
+- Document and test everything so far
+
+Other:
+- Statement Parsing
+- Refactor Factoids.pm
+- Put continuity in conduit
+- Fix karma implementation
+- Make joining the network a little more robust

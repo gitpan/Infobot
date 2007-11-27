@@ -1,0 +1,43 @@
+
+Milestone 1:
+
+  Milestone Goals:
+    * Provide developers with a platform they can hack on
+
+  Core:
+    - 100% code coverage
+    - 100% docs coverage
+    - Plugin writing tutorial
+    - Log writing tutorial
+    - Conduit writing tutorial
+    - Data source writing tutorial
+    * SVN repository
+
+  Plugins
+    Logs
+      - File
+      * STDERR
+      * ANSI Log
+      - Log4Perl
+    Conduits
+      * IRC
+      - Email
+      - Console
+      - POE HTTPD
+    DataSources
+      * HTTP client
+      * DBIxClass
+    Queries
+      * Greeting
+      - Factoids
+      * RSS
+      - Karma
+
+Milestone 2:
+
+    Milestone Goals:
+      * Support purl on Magnet
+    Development Goals:
+      * Add in decent support for help functions
+    Plugins:
+      * Port all plugins
