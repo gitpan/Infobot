@@ -1,3 +1,13 @@
+
+	use strict;
+	use warnings;
+	
+	use Test::More tests => 1;
+	
+	use_ok( 'Infobot::Plugin::Query::Client::HTTP' );
+
+__DATA__
+
 #!/usr/bin/perl
 
 # 080_conduit_base_010_basic.t - Tests around the base class for query plugins
@@ -14,8 +24,8 @@
 	
 	my @sites = (
 	
-		[ Google   => 'http://www.google.com/'   => qr/^Google.*/  ],
-#		[ Yahoo    => 'http://www.yahoo.com/'    => qr/^Yahoo.*/   ],
+#		[ Google   => 'http://www.google.com/'   => qr/^Google.*/  ],
+		[ Yahoo    => 'http://www.yahoo.com/'    => qr/^Yahoo.*/   ],
 #		[ Dilbert  => 'http://www.dilbert.com/'  => qr/^Dilbert.*/ ],
 	
 	);

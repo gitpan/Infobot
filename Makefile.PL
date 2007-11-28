@@ -22,6 +22,7 @@
 		DBIx::Class::Schema::Loader
 		DBD::SQLite
 		HTTP::Request
+		HTML::TreeBuilder
 		UNIVERSAL::require
 		YAML::Syck	
 

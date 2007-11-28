@@ -1,4 +1,13 @@
 
+use Test::More tests => 1;
+
+	use t::lib::FakeDBIxClass; # Just stop stuff complaining for now
+	use t::lib::NullLog;
+
+require_ok( 'Infobot::Plugin::Query::Factoids' );
+
+__DATA__
+
 	my @phrases = (
 		[ is => ' hey, where is foo?'   ], # s/^\s*hey,*\s+where/where/i
 		[ is => 'whois foo?'            ], # s/whois/who is/gi

@@ -53,7 +53,7 @@ end-users.
 
 	));
 	
-	our $VERSION = '0.91_01';
+	our $VERSION = '0.91_02';
 
 # This makes the whole thing run... infobot.pl is a very thin
 # wrapper on top of this.

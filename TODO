@@ -1,5 +1,17 @@
 Short-term/Next:
 
+- Fix tests
+	+ Tests pass
+	+ Include all the plugins in coverage
+	- Get to nearly 100% coverage again
+	- Run as pretty as possible
+	- Remove network tests
+
+- Remove the weird ._ files
+	
+
+
+- Proper quick-start guide
 - Sensible help system
 - Put unused stuff in the graveyard
 - Document and test everything so far

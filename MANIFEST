@@ -11,6 +11,7 @@ infobot
 infobot.conf
 INFOBOT_BUGS
 README
+CHANGES
 lib/Infobot/Base.pm
 lib/Infobot/Config.pm
 lib/Infobot/Log.pm

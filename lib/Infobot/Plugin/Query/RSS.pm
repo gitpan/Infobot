@@ -6,16 +6,34 @@ package Infobot::Plugin::Query::RSS;
 
 	use base (qw(Infobot::Plugin::Query::Base::HTTP));
 
-	our @required_modules = qw( XML::RSS HTTP::Request::Common );
+	our @required_modules = qw( XML::RSS HTTP::Request::Common URI::Escape HTML::TreeBuilder );
+
+# You can call this in three ways...
+#   - First off, you can provide a straight-up RSS feed URL
+#		- Secondly, you can provide a URL, and it'll look for RSS-y 'stuff'
+#		- Thirdly, you can provide plain-text, which it'll google, and then look for RSS
 	
 	sub process {
 		
 		my $self = shift;
 		my $message = shift;
+	
+	# Standard URL
 
 		if ( $message->{message} =~ m/^headlines (https?:\/\/(\S+))\s*$/ ) {
 
 			$self->get_rss( $message, $1 );
+			return 1;
+
+	# Key words...
+
+		} elsif ( $message->{message} =~ /^headlines (.+)$/ ) {
+
+			return undef unless $message->addressed;
+		
+			my $url = 'http://www.google.com/search?btnI=I%27m+Feeling+Lucky&q=' . URI::Escape::uri_escape( $1 );
+		
+			$self->get_rss( $message, $url );
 			return 1;
 
 		} else {
@@ -48,7 +66,14 @@ package Infobot::Plugin::Query::RSS;
 		unless ( $response->is_success ) {
 
 			$message->say("RSS fetch unsuccessful");
-			$self->log( 5, "Request unsuccessful" );
+			$self->log( 5, "Request unsuccessful: " . $response->code);
+			
+			if ( $response->code eq '500' ) {
+			
+				$self->log( 9, "HTTP error content: " . $response->content );
+			
+			}
+			
 			return;
 
 		}
@@ -60,13 +85,79 @@ package Infobot::Plugin::Query::RSS;
 
 		eval { $rss->parse( $data ) };
 		
-		if ( $@ ) {
+		my $rss_fail = $@;
+		my $html_fail;
+		
+		if ( $rss_fail ) {
 
-			$message->say("RSS unparseable");
-			$self->log( 5, "RSS unparseable: $@" );
-			return
+		# If the content-type is HTML, this might be saveable still...
+		
+			$message->context->{query_stash}->{rss_find} = 0 unless $message->context->{query_stash}->{rss_find};
+		
+			$self->log( 9, "Content-type is " . $response->header( 'Content-type' ) );
+			$self->log( 9, "RSS Find tries is " . $message->context->{query_stash}->{rss_find} );
+		
+			if (
+				( $response->header( 'Content-type' ) =~ m!^text/html! ) &&
+				(! $message->context->{query_stash}->{rss_find}++ )
+			) {
 
-		}	
+				my $tree = HTML::TreeBuilder->new;
+				eval { $tree->parse( $data ) };				
+		
+				if ( $@ ) {
+				
+					$self->log( 5, "HTML unparseable: [$@]" );
+					$message->say("Unparseable HTML returned :-(");
+					return undef;
+				
+				}
+				
+				my $good_link = $tree->look_down(
+					'_tag', 'link',
+					sub {
+					
+						my $element = shift;
+						
+						if (
+							( $element->attr('type') =~ m/\brss/ ) &&
+							( $element->attr('href') =~ m!^https?://! )
+						) {
+						
+							return $element->attr('href');
+						
+						} else {
+						
+							return undef;
+						
+						}
+					
+					}
+				);
+				
+				if ( $good_link ) {
+				
+					$self->get_rss( $message, $good_link->attr('href') );
+				
+				} else {
+				
+					$self->log(7, "No suitable links found");
+				
+				}
+				
+				return undef;
+		
+			} else {
+			
+				$self->log( 5, "RSS unparseable: [$rss_fail]" );
+				$message->say("RSS unparseable");
+				return undef;
+			
+			}
+		
+		}
+		
+		$self->log( 7, "RSS parse succeeded" );
 
 		my $headlines;
 

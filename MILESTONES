@@ -12,6 +12,7 @@ Milestone 1:
     - Conduit writing tutorial
     - Data source writing tutorial
     * SVN repository
+    - Add in help system
 
   Plugins
     Logs
@@ -21,7 +22,8 @@ Milestone 1:
       - Log4Perl
     Conduits
       * IRC
-      - Email
+      - Jabber
+      - TK
       - Console
       - POE HTTPD
     DataSources
@@ -29,7 +31,7 @@ Milestone 1:
       * DBIxClass
     Queries
       * Greeting
-      - Factoids
+      - Simple Factoids (with RSS redirect)
       * RSS
       - Karma
 
@@ -37,7 +39,5 @@ Milestone 2:
 
     Milestone Goals:
       * Support purl on Magnet
-    Development Goals:
-      * Add in decent support for help functions
     Plugins:
       * Port all plugins
