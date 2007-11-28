@@ -16,16 +16,12 @@ Milestone 1:
 
   Plugins
     Logs
-      - File
       * STDERR
       * ANSI Log
       - Log4Perl
     Conduits
       * IRC
-      - Jabber
-      - TK
-      - Console
-      - POE HTTPD
+      * TK
     DataSources
       * HTTP client
       * DBIxClass

@@ -1,3 +1,61 @@
+=head1 NAME
+
+Infobot::Plugin::Conduit::IRC - Connect to IRC
+
+=head1 DESCRIPTION
+
+Simple wrapper around L<POE::Component::IRC> to allow connections to
+IRC networks.
+
+=head1 CONFIGURATION EXAMPLE
+
+ conduit:
+    'Connection to MagNET':
+      class : Infobot::Plugin::Conduit::IRC
+      extras:
+          server   : cou.ch
+          nick     : infobot2
+          port     : 6667
+          ircname  : sheriff's infobot replacement
+          channels :
+              '#perl':
+                  addressing : 1
+          ignore   :
+              - 'purl.*'
+              - 'buubot.*'
+              - 'dipsy.*'
+              - 'CPAN.*'
+
+=head1 CONFIGURATION OPTIONS
+
+=head2 server
+
+The hostname or IP address of the target server
+
+=head2 port
+
+The TCP port to connect to - defaults to 6667
+
+=head2 ircname
+
+The name that comes up when someone performs a /whois on your Infobot
+
+=head2 nick
+
+The nick your Infobot should attempt to use
+
+=head2 ignore
+
+A YAML array of regular expressions - messages from nicknames
+that match these will be ignored
+
+=head2 channels
+
+A YAML hash containing channel names, and whether or not addressing
+is optional in them - that is, does the bot need to be spoken to
+in order to reply?
+
+=cut
 
 package Infobot::Plugin::Conduit::IRC;
 
@@ -13,6 +71,8 @@ package Infobot::Plugin::Conduit::IRC;
 		POE::Component::IRC 
 		POE::Component::IRC::Plugin::Connector 
 	);
+
+# Start-up
 
 	sub init {
 
@@ -35,7 +95,7 @@ package Infobot::Plugin::Conduit::IRC;
 		my $irc = POE::Component::IRC->spawn(
 			nick    => $self->{config}->{nick},
 			server  => $self->{config}->{server},
-			port    => $self->{config}->{port},
+			port    => $self->{config}->{port} || 6667,
 			ircname => $self->{config}->{ircname},
 		) or die $!;
 
@@ -46,20 +106,25 @@ package Infobot::Plugin::Conduit::IRC;
 
 	}
 
+# List any IRC messages we get for which there's no other handler
+
 	sub _default {
 
-	my ($self, $event, $args) = @_[OBJECT, ARG0 .. $#_];
-    my @output = ( "$event: " );
+		my ($self, $event, $args) = @_[OBJECT, ARG0 .. $#_];
 
-    foreach my $arg ( @$args ) {
-        if ( ref($arg) eq 'ARRAY' ) {
-                push( @output, "[" . join(" ,", @$arg ) . "]" );
-        } else {
-                push ( @output, "'$arg'" );
-        }
-    }	
+		my @output = ( "$event: " );
 
-	$self->log(9, ( join ' ', @output ) );
+		foreach my $arg ( @$args ) {
+
+			if ( ref($arg) eq 'ARRAY' ) {
+				push( @output, "[" . join(" ,", @$arg ) . "]" );
+			} else {
+				push ( @output, "'$arg'" );
+			}
+
+		}	
+
+		$self->log(9, ( join ' ', @output ) );
 
 	}
 

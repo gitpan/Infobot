@@ -245,7 +245,7 @@ can see this code in action.
    my $self = shift;
 		my %options = @_;
 
-	$self->log( 2, "$options->{name} from $options->{email} said $options->{text}" );
+		$self->log( 2, "$options->{name} from $options->{email} said $options->{text}" );
 
  }
 

@@ -1,5 +1,32 @@
 Short-term/Next:
 
+
+Conduits:
+	+ Document IRC conduit
+	+ Document Tk conduit
+	+ Document conduit base class
+	- Test IRC conduit
+	- Test Tk conduit
+	- Write a 'conduit writing guide'
+
+Logging:
+	- Write the Log4Perl plugin
+	- Complete the STDERR Log tests
+	- Complete the ASCII Colour log tests
+	- Complete the Log4Perl log tests
+	- Complete the STDERR docs
+	- Complete the ASCII Colour docs
+	- Complete the Log4Perl docs
+
+Datasources:
+
+
+Queries:
+
+
+
+
+
 - Fix tests
 	+ Tests pass
 	+ Include all the plugins in coverage
@@ -7,7 +34,7 @@ Short-term/Next:
 	- Run as pretty as possible
 	- Remove network tests
 
-- Remove the weird ._ files
++ Remove the weird ._ files
 	
 
 
