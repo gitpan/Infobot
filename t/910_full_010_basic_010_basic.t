@@ -2,6 +2,8 @@
 	use strict;
 	use warnings;
 
+	BEGIN { $ENV{'INFOBOT_NO_DEFAULT_LOG'} = 1 }
+
 	use t::lib::TestConduit;
 
 	t::lib::TestConduit->tests(

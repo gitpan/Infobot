@@ -6,6 +6,20 @@ package Infobot::Plugin::Query::Factoids;
 	
 	use base (qw( Infobot::Plugin::Query::Base::DBIxClass ));
 
+	our %help = (
+	
+		'factoids' => {
+		
+			'_' => "This release of Infobot provides a _very_ basic factoid system as a demonstration - it's not intended as a replacement for the old Infobot factoid system, or even as something useful in its own right",
+			
+			'setting'    => "remember [key] is [value] # Stores the value under the key",
+			'retrieving' => "what is [key]? # Retrieves the value for key",
+			'deleting'   => "forget [key] # Removes the factoid under key",
+		
+		}
+	
+	);
+
 	sub process {
 
 		my $self    = shift;

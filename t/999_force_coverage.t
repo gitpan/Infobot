@@ -22,6 +22,8 @@
 	use Infobot::Plugin::Query::Rot13;
 	use Infobot::Plugin::Query::Factoids;
 	use Infobot::Plugin::Query::Help;
+	use Infobot::Plugin::Query::Base::HTTP;
+	use Infobot::Plugin::Query::Base::DBIxClass;
 	use Infobot::Service;
 
 	ok(1, "Placeholder");

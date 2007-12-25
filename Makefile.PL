@@ -20,6 +20,7 @@
 		DBIx::Class
 		DBIx::Class::Schema::Loader
 		DBD::SQLite
+		IO::Capture
 		HTTP::Request
 		HTML::TreeBuilder
 		UNIVERSAL::require

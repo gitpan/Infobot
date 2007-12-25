@@ -214,7 +214,15 @@ a key + value (for storage).
 		
 		} else {
 
-			return $stash->{$key};
+			if ( $key ) {
+
+				return $stash->{$key};
+
+			} else {
+			
+				return undef;
+			
+			}
 
 		}
 

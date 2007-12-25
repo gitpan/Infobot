@@ -8,6 +8,8 @@
 
 	use Test::More tests => 19;
 	use t::lib::NullLog;
+	
+	use IO::Capture::Stderr; my $capture = IO::Capture::Stderr->new();
 
 # Set 'main::' to be a base class of Infobot::Base
 
@@ -68,7 +70,9 @@
 # Now check that that mechanism doesn't work (but also doesn't die) when using a
 # non-existant module.
 
+	$capture->start();
 	ok(! $object->require_base('Infobot::NOTFOUND'), "Loading Infobot::NOTFOUND as base returns false" );
+	$capture->stop();
 
 # Set name should set an object's internal 'name' attribute, and also load the
 # correct part of the config file in to its 'config' attribute. It works

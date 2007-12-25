@@ -6,6 +6,12 @@ package Infobot::Plugin::Query::GoogleDefine;
 
 	use base (qw(Infobot::Plugin::Query::Base::HTTP));
 
+	our %help = (
+	
+		'define' => 'define [string] # Searches Google for a definition of string'
+	
+	);
+
 	our @required_modules = qw( HTTP::Request::Common URI::Escape  );
 	
 	sub process {

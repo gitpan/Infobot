@@ -14,6 +14,7 @@
 	use HTTP::Response;
 	use Infobot::Log;
 	use Infobot::Plugin::DataSource::HTTP;
+	use t::lib::NullLog;
 
 # Set up our fake Yahoo response...
 
@@ -31,6 +32,7 @@
 # Add some fake logging in...
 
 	$object->stash( log => Infobot::Log->new );
+	t::lib::NullLog->new()->register();
 
 # First, let's set up some fake config data, and init the client...
 	

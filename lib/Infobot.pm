@@ -15,19 +15,23 @@ Infobot - Popular IRC bot
 
 =head1 DESCRIPTION
 
-B<PLEASE NOTE: This is a developer release. This code IS NOT READY TO USE,
-LOOK AT, OR ANYTHING VAGUELY LIKE THAT.>
-
-C<infobot> is an IRC bot which implements a sort of artificial
-intelligence by learning information ("factoids") from channel
-discussions and then responding intelligently to queries about this
-accumulated information.  Through plug-ins, the C<infobot> can also
+Infobot is a personal or group assistant, originally designed for
+IRC. The original Infobot implemented a sort of artificial
+intelligence by learning information ("factoids") from IRC
+channel discussions, and the responding intelligently to queries
+about that information. Through plug-ins, the Infobot can also
 interactively query all sorts of other data sources.
 
-The C<1.00> release of C<infobot> offers a new and improved back-end -
-100% test and documentation coverage, a simple and stable plugin system,
-while maintaining feature (and bug!) parity with C<0.43> were the
-priorities in this release.
+While this is a developer release (and thus B<UNFIT FOR ANY
+PURPOSE>), the eventual goal of the C<1.00> release is to
+maintain feature (and bug) parity with the C<0.43> release,
+on a considerably more modern code base.
+
+Other major new features include complete independence from
+IRC, a robust and well documented plugin system that's very
+simple to develop for, and asynchronous IO throughout. As such,
+it's also an excellent platform for developing all sorts of
+other bots.
 
 =head1 END USER INFORMATION
 
@@ -53,7 +57,7 @@ end-users.
 
 	));
 	
-	our $VERSION = '0.91_04';
+	our $VERSION = '0.91_05';
 
 # This makes the whole thing run... infobot.pl is a very thin
 # wrapper on top of this.

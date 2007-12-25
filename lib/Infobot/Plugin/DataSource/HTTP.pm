@@ -1,12 +1,53 @@
+=head1 NAME
 
-# Also provides Infobot::Plugin::Query::Base::HTTP later on...
+Infobot::Plugin::DataSource::HTTP - Spawn a POE::Component::Client::HTTP session
 
-	use POE;	
-	use POE::Component::Client::HTTP;
+=head1 DESCRIPTION
+
+Spawns a POE::Component::Client::HTTP session for easy use by other components
+
+=head1 CONFIGURATION EXAMPLE
+
+ datasource:
+ ...
+    'HTTP':
+        class : Infobot::Plugin::DataSource::HTTP
+        alias : poe_http
+        extras:
+          Agent   : Infobot v1.0
+          Timeout : 15
+          FollowRedirects: 3
+
+=head1 CONFIGURATION OPTIONS
+
+=head2 alias
+
+Where to stash this, and also the POE alias given to the session
+we create.
+
+=head2 extras
+
+Passed directly through to L<POE::Component::Client::HTTP> - see
+those docs for more information on what's allowed
+
+=head1 AUTHOR
+
+Pete Sergeant -- C<pete@clueball.com>
+
+=head1 LICENSE
+
+Copyright B<Pete Sergeant>.
+
+This program is free software; you can redistribute it
+and/or modify it under the same terms as Perl itself.
+
+=cut
 
 package Infobot::Plugin::DataSource::HTTP;
 
 	use base qw/Infobot::Plugin::DataSource::Base/; 
+
+	use POE::Component::Client::HTTP;
 		
 	our @required_modules = ( qw( HTTP::Request POE::Component::Client::HTTP ) ); 
 
@@ -29,87 +70,5 @@ package Infobot::Plugin::DataSource::HTTP;
 
 	}
 
-
-package Infobot::Plugin::Query::Base::HTTP;
-
-	use strict;
-	use warnings;
-
-	use POE;
-
-	use base qw( Infobot::Plugin::Query::Base );
-
-	sub init {
-
-		my $self = shift;
-		my $name = shift;
-
-		$self->set_name( $name );
-
-		$self->{session} = POE::Session->create(
-			object_states => [ $self => [qw( _stop _start _base_request _base_response )] ],
-		)->ID;
-
-	}
-
-	sub _stop { }
-
-	sub request {
-
-		my $self    = shift;
-		my $message = shift;
-		my $request = shift;
-
-		die "[$self->{config}->{'http_client'}] not found in the stash" unless $self->stash( $self->{config}->{'http_client'} );
-		$self->log(9, "Posting a _base_request item to session " . $self->{session} );
-		$self->log(9, "[$self->{session}] resolves to [" . $poe_kernel->_resolve_session( $self->{session} ) . ']' );
-
-		$poe_kernel->post( 
-			
-			$self->{session} => '_base_request',
-			[
-				$self->stash( $self->{config}->{'http_client'} )->alias, 
-				'request',
-				'_base_response',
-				$request, 
-				$message
-			]
-		
-		);
-
-	}
-
-	sub _start {
-
-		my ( $self, $session ) = @_[ OBJECT, SESSION ];
-
-		$poe_kernel->alias_set( $self->{name} . \$self );
-
-		return 1;
-
-	}
-
-	sub _base_request {
-
-		my ($self, $kernel) = @_[ OBJECT, KERNEL ];
-
-		$self->log( 9, "_base_request called - calling $_[ARG0]->[1] on $_[ARG0]->[0]" );
-		$self->log( 9, '[' . $_[ARG0]->[0] . '] resolves to [' . $poe_kernel->_resolve_session( $_[ARG0]->[0] ) . ']' );
-		#$self->log( 9, "ARG$_ = " . $_[ARG0]->[$_]) for ( 0 .. 5);
-		
-		$kernel->post( @{ $_[ARG0] } );
-
-	}
-
-	sub _base_response {
-
-		my ( $self, $request_object, $response_object ) = @_[ OBJECT, ARG0, ARG1 ];
-
-		my $message  = $request_object->[1];
-		my $response = $response_object->[0];	
-
-		$self->response( $message , $response );
-
-	}
 
 1;

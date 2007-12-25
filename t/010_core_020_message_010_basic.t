@@ -6,6 +6,7 @@
 	use strict;
 	use warnings;
 
+	use t::lib::NullLog;
 	use Test::More tests => 17;
 
 # $buffer here is a file-scoped variable, and we're going to use it to easily
@@ -17,6 +18,7 @@
 
 	use Infobot::Log;
 	Infobot::Log->stash( log => Infobot::Log->new() );
+	t::lib::NullLog->new()->register();
 
 # Check that there are no compile-time errors with Infobot::Message...
 

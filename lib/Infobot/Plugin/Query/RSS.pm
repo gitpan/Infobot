@@ -8,6 +8,12 @@ package Infobot::Plugin::Query::RSS;
 
 	our @required_modules = qw( XML::RSS HTTP::Request::Common URI::Escape HTML::TreeBuilder );
 
+	our %help = (
+	
+		headlines => 'headlines [string] # Retrieves RSS headlines from an RSS feed, or a website that links to an RSS feed, or for any search term, via Google\'s I\'m Feeling Lucky'
+	
+	);
+
 # You can call this in three ways...
 #   - First off, you can provide a straight-up RSS feed URL
 #		- Secondly, you can provide a URL, and it'll look for RSS-y 'stuff'

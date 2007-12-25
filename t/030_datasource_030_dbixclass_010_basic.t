@@ -7,6 +7,7 @@
 	
 	use Test::More tests => 4;
 	use Test::Exception;
+	use t::lib::NullLog;
 
 	use DBI;
 	use Infobot::Log;
@@ -15,6 +16,7 @@
 	my $log = Infobot::Log->new();
 	$log->init;
 	$log->stash( log => $log );
+	t::lib::NullLog->new()->register();
 	
 	die "YIKES: $!" unless Infobot::Plugin::DataSource::DBIxClass->load();
 

@@ -1,58 +1,63 @@
 Milestone 1:
 
 Conduits:
-	+ Document IRC conduit
-	+ Document Tk conduit
-	+ Document conduit base class
-	H Test IRC conduit
-	H Test Tk conduit
-	+ Write a 'conduit writing guide'
+	! Test IRC conduit
+	! Test Tk conduit
 
 Logging:
-	- Complete the STDERR Log tests
 	- Complete the ASCII Colour log tests
-	+ Complete the STDERR docs
-	+ Complete the ASCII Colour docs
-	+ Write a logging writing guide
 
 Datasources:
-	+ Move datasources to a more sensible location
-	- Split out base classes properly
-	- Document HTTP
-	+ Test HTTP
-	- Document DBIx::Class
-	+ Test DBIx::Class
 	- How to write a datasource
 
 Queries:
 	- Document Factoids
 	- Test Factoids
-	- Add factoids help
 	- Document GoogleDefine
 	- Test GoogleDefine
-	- Add GoogleDefine help
-	+ Document Rot13
-	+ Test Rot13
+	- Document Rot13
 	- Document Help
-	+ Test Help
+	- Document HTTP Base
+	- Document DBIx Base
+	- Sort RSS stuff
 	- How to write a simple query
-	- How to write an HTTP query
-	- How to write a database query
 
 Fix tests:
-	+ Tests pass
-	+ Include all the plugins in coverage
-	- Get to nearly 100% coverage again
-	- Run as pretty as possible
-	+ Remove network tests
+	- Get to 100% coverage again
 
 Other:
 	- Proper quick-start guide
-	+ Sensible help system
-	- Put unused stuff in the graveyard
 	- Document and test everything so far
-	+ Fix SVN
+	- Logging code review of all code
+	- Code-doc review of all code
 
+Completed:
+	+ Bug: ANSI - 5 is bold, 4 is not?
+	+ Document IRC conduit
+	+ Document Tk conduit
+	+ Document conduit base class
+	+ Write a 'conduit writing guide'
+	+ Complete the STDERR Log tests
+	+ Complete the STDERR docs
+	+ Complete the ASCII Colour docs
+	+ Write a logging writing guide
+	+ Move datasources to a more sensible location
+	+ Split out base classes properly
+	+ Document HTTP
+	+ Test HTTP
+	+ Document DBIx::Class
+	+ Test DBIx::Class
+	+ Add factoids help
+	+ Add GoogleDefine help
+	+ Test Rot13
+	+ Test Help
+	+ Tests pass
+	+ Include all the plugins in coverage
+	+ Run as pretty as possible
+	+ Remove network tests
+	+ Sensible help system
+	+ Put unused stuff in the graveyard
+	+ Fix SVN
 
 Milestone 2:
 
@@ -62,7 +67,5 @@ Milestone 2:
 	- Fix Karma
 	- Document Karma
 	- Test Karma
-	- Document Rot 13
-	- Test Rot 13
 	- Document RSS
 	- Test RSS

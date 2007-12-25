@@ -88,8 +88,10 @@ through to the C<output> method.
 		my $self    = shift;
 		my $package = shift;
 		my $level   = shift;
-
-		return unless $level <= $self->level;
+		
+		my $loglevel = $self->level || 0;
+	
+		return unless $level <= $loglevel;
 
 		my $message = shift;
 

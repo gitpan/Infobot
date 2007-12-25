@@ -90,14 +90,13 @@ and/or modify it under the same terms as Perl itself.
 		
 			my $level = 9 - $_;
 		
-			$self->{colour}->{levels}->[ $level ] =
+			if ( $self->{config}->{colours}->{levels}->{$level} ) {
 			
-				Term::ANSIColor::color(
+				$current_colour = $self->{config}->{colours}->{levels}->{$level};
 			
-					$self->{config}->{colours}->{levels}->{$level} ||
-					$current_colour
-				
-				);
+			}
+		
+			$self->{colour}->{levels}->[ $level ] = Term::ANSIColor::color( $current_colour );
 		
 		}
 

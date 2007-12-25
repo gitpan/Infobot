@@ -91,8 +91,12 @@ Infobot::Base->log.
 
 		} else {
 
-			print STDERR ( $package . ':' . $_[1] ) . "\n";
-			return undef;
+			unless ( $ENV{'INFOBOT_NO_DEFAULT_LOG'} ) {
+
+				print STDERR ( $package . ':' . $_[1] ) . "\n";
+				return undef;
+
+			}
 
 		}
 

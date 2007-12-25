@@ -5,7 +5,8 @@
 	use strict;
 	use warnings;
 
-	use Test::More tests => 8;
+	use Test::More tests => 10;
+	use IO::Capture::Stderr; my $capture = IO::Capture::Stderr->new();
 
 	use_ok( 'Infobot::Log' );
 
@@ -14,12 +15,21 @@
 # write() without an init() should cause our backup STDERR logging to fire, and
 # also return undef...
 
-	ok(! $object->write("#", 1, "Ignore this message!"), "write returns undef if uninitialised" );
+	$capture->start();
+	ok(! $object->write("#", 1, "Ignore this message1!"), "write returns undef if uninitialised" );
+	$capture->stop();
+	
+	is( $capture->read(), "#:Ignore this message1!\n", "Message passed to STDERR" );
 
 # Init with no object should do the same...
 
 	$object->init();
-	ok(! $object->write("#", 1, "Ignore this message!"), "write returns undef if defaulting to STDERR" );
+
+	$capture->start();
+	ok(! $object->write("#", 1, "Ignore this message2!"), "write returns undef if defaulting to STDERR" );
+	$capture->stop();
+
+	is( $capture->read(), "#:Ignore this message2!\n", "Message passed to STDERR" );	
 
 # Let's add a couple of fake log objects, and see if they both get hit...
 
