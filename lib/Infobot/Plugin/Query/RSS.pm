@@ -22,6 +22,7 @@ package Infobot::Plugin::Query::RSS;
 
 		if ( $message->{message} =~ m/^headlines (https?:\/\/(\S+))\s*$/ ) {
 
+			$message->{context}->{headline_name} = $1;
 			$self->get_rss( $message, $1 );
 			return 1;
 
@@ -32,7 +33,9 @@ package Infobot::Plugin::Query::RSS;
 			return undef unless $message->addressed;
 		
 			my $url = 'http://www.google.com/search?btnI=I%27m+Feeling+Lucky&q=' . URI::Escape::uri_escape( $1 );
-		
+
+			$message->{context}->{headline_name} = $1;
+						
 			$self->get_rss( $message, $url );
 			return 1;
 
@@ -65,7 +68,7 @@ package Infobot::Plugin::Query::RSS;
 		
 		unless ( $response->is_success ) {
 
-			$message->say("RSS fetch unsuccessful");
+			$message->say("RSS fetch unsuccessful for " . $message->{context}->{headline_name} );
 			$self->log( 5, "Request unsuccessful: " . $response->code);
 			
 			if ( $response->code eq '500' ) {
@@ -108,7 +111,7 @@ package Infobot::Plugin::Query::RSS;
 				if ( $@ ) {
 				
 					$self->log( 5, "HTML unparseable: [$@]" );
-					$message->say("Unparseable HTML returned :-(");
+					$message->say("Unparseable HTML returned trying to find feed for " . $message->{context}->{headline_name});
 					return undef;
 				
 				}
@@ -141,6 +144,7 @@ package Infobot::Plugin::Query::RSS;
 				
 				} else {
 				
+					$message->say("Couldn't find a suitable RSS feed for " .  $message->{context}->{headline_name});
 					$self->log(7, "No suitable links found");
 				
 				}
@@ -149,7 +153,7 @@ package Infobot::Plugin::Query::RSS;
 		
 			} else {
 			
-				$self->log( 5, "RSS unparseable: [$rss_fail]" );
+				$self->log( 5, "RSS unparseable: [$rss_fail] for " . $message->{context}->{headline_name} );
 				$message->say("RSS unparseable");
 				return undef;
 			
@@ -176,7 +180,15 @@ package Infobot::Plugin::Query::RSS;
 		$headlines =~ s/; $//;
 		$headlines =~ s/\s+/ /sg;
 
-		$message->say( $headlines );
+		if ( length( $headlines ) < 3 ) {
+
+			$message->say( "Too little data returned to get headlines for " . $message->{context}->{headline_name} );
+
+		} else {
+	
+			$message->say( $headlines );
+
+		}
 
 	}
 

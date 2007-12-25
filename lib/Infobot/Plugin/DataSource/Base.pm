@@ -1,10 +1,10 @@
 =head1 NAME
 
-Infobot::Plugin::Query::Client::Base
+Infobot::Plugin::DataSource::Base
 
 =cut
 
-package Infobot::Plugin::Query::Client::Base;
+package Infobot::Plugin::DataSource::Base;
 
 	use strict;
 	use warnings;

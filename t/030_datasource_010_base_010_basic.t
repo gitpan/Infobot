@@ -7,14 +7,14 @@
 	
 	use Test::More tests => 4;
 
-	use_ok( 'Infobot::Plugin::Query::Client::Base' );
+	use_ok( 'Infobot::Plugin::DataSource::Base' );
 
 # Set name should set an object's internal 'name' attribute, and also load the
 # correct part of the config file in to its 'config' attribute. It should be
 # explicitly tryin to retrieve the 'conduit' category here... set_name is called
 # via init()
 	
-	my $object = Infobot::Plugin::Query::Client::Base->new();
+	my $object = Infobot::Plugin::DataSource::Base->new();
 	
 	$object->stash( config => { datasource => { bar => { extras => 'bang', alias => 11 } } } );
 	$object->init( 'bar' );

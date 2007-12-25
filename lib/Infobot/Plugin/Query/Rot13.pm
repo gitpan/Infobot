@@ -5,6 +5,12 @@ package Infobot::Plugin::Query::Rot13;
 	use warnings;
 
 	use base (qw(Infobot::Plugin::Query::Base));
+
+	our %help = (
+	
+		rot13 => "rot13 [string] # Translates the string in to rot13"
+	
+	);
 	
 	sub process {
 		

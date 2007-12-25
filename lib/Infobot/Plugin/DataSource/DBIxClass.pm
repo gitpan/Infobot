@@ -1,9 +1,9 @@
 
 # Also provides ::Base::DBIxClass later on...
 
-package Infobot::Plugin::Query::Client::DBIxClass;
+package Infobot::Plugin::DataSource::DBIxClass;
 
-	use base qw/Infobot::Plugin::Query::Client::Base/; 
+	use base qw/Infobot::Plugin::DataSource::Base/; 
 
 	sub load {
 	

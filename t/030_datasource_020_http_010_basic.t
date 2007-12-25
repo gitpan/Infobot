@@ -1,36 +1,32 @@
 
-	use strict;
-	use warnings;
-	
-	use Test::More tests => 1;
-	
-	use_ok( 'Infobot::Plugin::Query::Client::HTTP' );
-
-__DATA__
-
 #!/usr/bin/perl
 
-# 080_conduit_base_010_basic.t - Tests around the base class for query plugins
+	BEGIN { $INC{'POE/Component/Client/HTTP.pm'}++ }
 
 	use strict;
 	use warnings;
 	
 	use Test::More tests => 1;
+	use t::lib::PCCHTTP;
 
 	use POE;
 	use HTTP::Request::Common;
+	use HTTP::Response;
 	use Infobot::Log;
-	use Infobot::Plugin::Query::Client::HTTP;
+	use Infobot::Plugin::DataSource::HTTP;
+
+# Set up our fake Yahoo response...
+
+	my $http_response = HTTP::Response->new( 200, 'OK', [], '<title>Yahoo</title>' );
+	POE::Component::Client::HTTP->response( $http_response );
 	
 	my @sites = (
 	
-#		[ Google   => 'http://www.google.com/'   => qr/^Google.*/  ],
 		[ Yahoo    => 'http://www.yahoo.com/'    => qr/^Yahoo.*/   ],
-#		[ Dilbert  => 'http://www.dilbert.com/'  => qr/^Dilbert.*/ ],
 	
 	);
 
-	 my $object = Infobot::Plugin::Query::Client::HTTP->new();
+	 my $object = Infobot::Plugin::DataSource::HTTP->new();
 
 # Add some fake logging in...
 

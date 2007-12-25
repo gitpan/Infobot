@@ -1,12 +1,12 @@
 
-# Also provides ::Base::HTTP later on...
+# Also provides Infobot::Plugin::Query::Base::HTTP later on...
 
 	use POE;	
 	use POE::Component::Client::HTTP;
 
-package Infobot::Plugin::Query::Client::HTTP;
+package Infobot::Plugin::DataSource::HTTP;
 
-	use base qw/Infobot::Plugin::Query::Client::Base/; 
+	use base qw/Infobot::Plugin::DataSource::Base/; 
 		
 	our @required_modules = ( qw( HTTP::Request POE::Component::Client::HTTP ) ); 
 

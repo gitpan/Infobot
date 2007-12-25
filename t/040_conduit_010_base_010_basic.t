@@ -5,7 +5,7 @@
 	use strict;
 	use warnings;
 	
-	use Test::More tests => 4;
+	use Test::More tests => 5;
 
 	use_ok( 'Infobot::Plugin::Conduit::Base' );
 
@@ -25,6 +25,10 @@
 
 	$object->stash( pipeline => FakeClass->new() );
 	is( $object->pipeline, 3, "pipeline method works as an alias to the pipeline" );
+
+# Finally, the default say method should return true
+
+	ok( $object->say('asdf'), "Default say() returns true" );
 
 package FakeClass;
 

@@ -9,6 +9,8 @@ package Infobot::Plugin::Query::Base;
 
 	use strict;
 	use warnings;
+	
+	no strict 'refs';
 
 	use base (qw(Infobot::Base));
 
@@ -32,7 +34,8 @@ Calls C<set_name>
 =head2 set_name
 
 Grabs the priority from the config, and puts it somewhere safe. Then calls
-L<Infobot::Base>'s C<set_name> with C<query> as the category.
+L<Infobot::Base>'s C<set_name> with C<query> as the category. Finally adds
+any help information to the help stash.
 
 =cut
 
@@ -42,6 +45,29 @@ L<Infobot::Base>'s C<set_name> with C<query> as the category.
 		my $name = shift;
 
 		$self->{_priority} = $self->stash('config')->{query}->{$name}->{priority};
+
+	# Add help data
+
+		my $package = $self->_get_package_name(); 
+		my $help_name = $package . '::help';
+		
+		if ( %$help_name ) {
+
+			my %help;
+
+			if ( $self->stash('help') ) {
+
+				%help = ( %{$self->stash('help')}, %$help_name );
+
+			} else {
+			
+				%help = %$help_name;
+			
+			}
+
+			$self->stash( 'help' => \%help );
+
+		}
 
 		return $self->SUPER::set_name( 'query', $name );
 

@@ -1,5 +1,10 @@
 Revision history for Perl extension Infobot.
 
+0.91_04  Tue Dec 25 2007
+	- Added a bunch of new docs
+	- Testing is more thorough
+	- Finalized todo list
+
 0.91_03  Wed Nov 28 2007
 	- Added a simple Tk conduit
 	- Documented the conduit's properly

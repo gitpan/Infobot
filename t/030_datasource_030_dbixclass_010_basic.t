@@ -10,13 +10,13 @@
 
 	use DBI;
 	use Infobot::Log;
-	use Infobot::Plugin::Query::Client::DBIxClass;
+	use Infobot::Plugin::DataSource::DBIxClass;
 	
 	my $log = Infobot::Log->new();
 	$log->init;
 	$log->stash( log => $log );
 	
-	die "YIKES: $!" unless Infobot::Plugin::Query::Client::DBIxClass->load();
+	die "YIKES: $!" unless Infobot::Plugin::DataSource::DBIxClass->load();
 
 	{
 	# Create a simple database, using DBI...
@@ -27,7 +27,7 @@
 	
 	}
 	
-	my $object = Infobot::Plugin::Query::Client::DBIxClass->new();
+	my $object = Infobot::Plugin::DataSource::DBIxClass->new();
 	$object->stash( config => { 
 		datasource => { foo => { alias => 'dbixclass', extras => { 
 			dsn   => 'dbi:SQLite:dbname=t/databases/test.db',

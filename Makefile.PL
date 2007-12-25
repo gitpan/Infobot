@@ -16,7 +16,6 @@
 		POE
 		POE::Component::Client::HTTP
 		POE::Component::IRC
-		POE::Wheel::ReadLine
 		File::Basename
 		DBIx::Class
 		DBIx::Class::Schema::Loader
@@ -25,6 +24,7 @@
 		HTML::TreeBuilder
 		UNIVERSAL::require
 		YAML::Syck	
+		Term::ANSIColor
 
 	);
 
